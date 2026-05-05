@@ -272,6 +272,10 @@ function renderDagen() {
         const dagNummer = dag;
         cell.style.cursor = "pointer";
         cell.addEventListener("click", () => {
+            // Verwijder 'selected' van vorige selectie
+            document.querySelectorAll(".day-cell.selected").forEach(el => el.classList.remove("selected"));
+            // Voeg 'selected' toe aan geklikte dag
+            cell.classList.add("selected");
             toonDagInfo(huidigeMaand, dagNummer, huidigJaar);
         });
 

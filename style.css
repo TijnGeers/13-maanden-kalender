@@ -255,6 +255,17 @@ body {
     box-shadow: 0 0 12px rgba(47, 230, 255, 0.5);
 }
 
+.day-cell.selected {
+    outline: 2px solid #7f5cff;
+    outline-offset: 2px;
+    box-shadow: 0 0 10px rgba(127, 92, 255, 0.5);
+}
+
+.day-cell.today.selected {
+    outline-color: #2fe6ff;
+    box-shadow: 0 0 12px rgba(47, 230, 255, 0.6);
+}
+
 .day-cell.weekend {
     color: #aab4ff;
 }
