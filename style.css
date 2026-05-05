@@ -256,14 +256,15 @@ body {
 }
 
 .day-cell.selected {
-    outline: 2px solid #7f5cff;
-    outline-offset: 2px;
-    box-shadow: 0 0 10px rgba(127, 92, 255, 0.5);
+    border: 2px solid #2fe6ff;
+    box-shadow: 0 0 14px rgba(47, 230, 255, 0.6), inset 0 0 8px rgba(47, 230, 255, 0.15);
+    z-index: 10;
+    position: relative;
 }
 
 .day-cell.today.selected {
-    outline-color: #2fe6ff;
-    box-shadow: 0 0 12px rgba(47, 230, 255, 0.6);
+    border-color: #ffffff;
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.5), inset 0 0 8px rgba(47, 230, 255, 0.2);
 }
 
 .day-cell.weekend {
