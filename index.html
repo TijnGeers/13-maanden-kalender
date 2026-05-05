@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13-Maanden Kalender</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>13-Maanden Kalender</h1>
+            <div id="vandaag-display" class="vandaag-display"></div>
+            <div class="year-nav">
+                <button id="prev-year" class="nav-btn">&larr;</button>
+                <span id="current-year" class="year-display"></span>
+                <button id="next-year" class="nav-btn">&rarr;</button>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <div class="calendar-container">
+                <nav class="month-nav">
+                    <button id="prev-month" class="nav-btn">&larr;</button>
+                    <h2 id="month-title" class="month-title"></h2>
+                    <button id="next-month" class="nav-btn">&rarr;</button>
+                </nav>
+
+                <div class="calendar-grid">
+                    <div class="day-header">Ma</div>
+                    <div class="day-header">Di</div>
+                    <div class="day-header">Wo</div>
+                    <div class="day-header">Do</div>
+                    <div class="day-header">Vr</div>
+                    <div class="day-header">Za</div>
+                    <div class="day-header">Zo</div>
+                    <div id="calendar-days" class="days-grid"></div>
+                </div>
+
+                <div id="special-day" class="special-day hidden">
+                    <div class="special-day-card">
+                        <span class="special-icon">🎆</span>
+                        <h3>Oudjaarsdag</h3>
+                        <p>De extra dag aan het einde van het jaar</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="info-panel" class="info-panel">
+                <div class="info-placeholder">
+                    <span class="info-icon">👈</span>
+                    <p>Klik op een dag voor meer info</p>
+                </div>
+                <div id="info-content" class="info-content hidden"></div>
+            </div>
+        </div>
+
+        <div class="month-overview">
+            <h3>Alle Maanden</h3>
+            <div id="month-list" class="month-list"></div>
+        </div>
+
+        <footer class="footer">
+            <p>13 maanden × 28 dagen + 1 Oudjaarsdag = 365 dagen</p>
+        </footer>
+    </div>
+
+    <script src="kalender.js"></script>
+</body>
+</html>

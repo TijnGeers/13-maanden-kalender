@@ -1,0 +1,462 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: radial-gradient(circle at top, #2b1b3f, #0b1026);
+    color: #e8ecff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+}
+
+.app {
+    width: 95%;
+    max-width: 1100px;
+}
+
+/* Main layout: calendar + info panel side by side */
+.main-layout {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #9ad7ff;
+    text-shadow: 0 0 12px rgba(154, 215, 255, 0.6);
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.vandaag-display {
+    background: rgba(47, 230, 255, 0.1);
+    border: 1px solid #1bbcd4;
+    border-radius: 14px;
+    padding: 10px 18px;
+    margin-bottom: 1rem;
+    font-size: 15px;
+    font-weight: 600;
+    color: #2fe6ff;
+    text-shadow: 0 0 8px rgba(47, 230, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.vandaag-display:hover {
+    background: rgba(47, 230, 255, 0.2);
+    box-shadow: 0 0 12px rgba(47, 230, 255, 0.3);
+}
+
+.year-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.year-display {
+    font-size: 1.25rem;
+    font-weight: 600;
+    min-width: 80px;
+    text-align: center;
+    color: #aab4ff;
+}
+
+/* Navigation buttons */
+.nav-btn {
+    background: linear-gradient(135deg, #7f5cff, #5a3cff);
+    border: none;
+    border-radius: 14px;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.nav-btn:hover {
+    background: linear-gradient(135deg, #9a7cff, #7f5cff);
+    box-shadow: 0 0 15px rgba(127, 92, 255, 0.4);
+}
+
+/* Calendar container */
+.calendar-container {
+    background: linear-gradient(160deg, #10162f, #0a0f24);
+    border-radius: 22px;
+    box-shadow:
+        0 0 30px rgba(110, 120, 255, 0.25),
+        0 0 80px rgba(0, 255, 255, 0.08);
+    padding: 1.5rem;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Info panel */
+.info-panel {
+    width: 280px;
+    flex-shrink: 0;
+    background: linear-gradient(160deg, #10162f, #0a0f24);
+    border-radius: 22px;
+    box-shadow:
+        0 0 20px rgba(110, 120, 255, 0.15),
+        0 0 50px rgba(0, 255, 255, 0.05);
+    padding: 1.5rem;
+    position: sticky;
+    top: 2rem;
+}
+
+.info-placeholder {
+    text-align: center;
+    color: #6f7bdc;
+    padding: 2rem 0;
+}
+
+.info-placeholder .info-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.info-placeholder p {
+    font-size: 0.9rem;
+}
+
+.info-content.hidden {
+    display: none;
+}
+
+.info-content h3 {
+    font-size: 1.1rem;
+    color: #9ad7ff;
+    text-shadow: 0 0 8px rgba(154, 215, 255, 0.4);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.info-section {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #1f2a5c;
+}
+
+.info-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6f7bdc;
+    margin-bottom: 4px;
+}
+
+.info-value {
+    font-size: 0.95rem;
+    color: #e8ecff;
+    font-weight: 500;
+}
+
+.info-value.highlight {
+    color: #2fe6ff;
+    text-shadow: 0 0 6px rgba(47, 230, 255, 0.3);
+}
+
+.info-feestdag {
+    background: rgba(255, 180, 50, 0.1);
+    border: 1px solid rgba(255, 180, 50, 0.3);
+    border-radius: 10px;
+    padding: 8px 12px;
+    color: #ffb432;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.month-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.month-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #9ad7ff;
+    text-shadow: 0 0 10px rgba(154, 215, 255, 0.4);
+}
+
+/* Calendar grid */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.day-header {
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #6f7bdc;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.days-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.day-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: default;
+    transition: all 0.15s ease;
+    position: relative;
+    color: #e8ecff;
+}
+
+.day-cell:hover {
+    background: rgba(127, 92, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.day-cell.today {
+    background: linear-gradient(135deg, #2fe6ff, #1bbcd4);
+    color: #002b36;
+    font-weight: 700;
+    box-shadow: 0 0 12px rgba(47, 230, 255, 0.5);
+}
+
+.day-cell.weekend {
+    color: #aab4ff;
+}
+
+/* Special day (Oudjaarsdag) */
+.special-day {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.special-day.hidden {
+    display: none;
+}
+
+.special-day-card {
+    background: linear-gradient(135deg, #7f5cff, #5a3cff);
+    border-radius: 14px;
+    padding: 1.5rem;
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(127, 92, 255, 0.4);
+}
+
+.special-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.special-day-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+}
+
+.special-day-card p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Month overview */
+.month-overview {
+    background: linear-gradient(160deg, #10162f, #0a0f24);
+    border-radius: 22px;
+    box-shadow:
+        0 0 30px rgba(110, 120, 255, 0.15),
+        0 0 60px rgba(0, 255, 255, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.month-overview h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #aab4ff;
+}
+
+.month-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.5rem;
+}
+
+.month-item {
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    background: #0b132f;
+    border: 2px solid #1f2a5c;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #e8ecff;
+}
+
+.month-item:hover {
+    border-color: #7f5cff;
+    background: rgba(127, 92, 255, 0.15);
+}
+
+.month-item.active {
+    background: linear-gradient(135deg, #7f5cff, #5a3cff);
+    color: white;
+    border-color: #7f5cff;
+    box-shadow: 0 0 10px rgba(127, 92, 255, 0.4);
+}
+
+.month-item.special {
+    background: rgba(47, 230, 255, 0.1);
+    border-color: #1bbcd4;
+    color: #2fe6ff;
+}
+
+.month-item.special:hover {
+    background: rgba(47, 230, 255, 0.2);
+    border-color: #2fe6ff;
+}
+
+/* Feestdagen */
+.day-cell.feestdag {
+    background: rgba(255, 180, 50, 0.15);
+    border: 1px solid rgba(255, 180, 50, 0.4);
+    flex-direction: column;
+    gap: 2px;
+}
+
+.day-cell.feestdag .day-number {
+    font-size: 0.85rem;
+    line-height: 1;
+}
+
+.feestdag-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffb432;
+    box-shadow: 0 0 6px rgba(255, 180, 50, 0.6);
+}
+
+.day-cell.feestdag.today {
+    border-color: #2fe6ff;
+}
+
+.feestdagen-lijst {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 180, 50, 0.06);
+    border: 1px solid rgba(255, 180, 50, 0.2);
+    border-radius: 14px;
+}
+
+.feestdagen-lijst h4 {
+    font-size: 0.9rem;
+    color: #ffb432;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.feestdag-item {
+    font-size: 0.85rem;
+    color: #e8ecff;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.feestdag-item:last-child {
+    border-bottom: none;
+}
+
+.feestdag-dag {
+    display: inline-block;
+    background: rgba(255, 180, 50, 0.2);
+    color: #ffb432;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    font-size: 12px;
+    color: #7f8cff;
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+    .main-layout {
+        flex-direction: column;
+    }
+
+    .info-panel {
+        width: 100%;
+        position: static;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 1rem 0.5rem;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .month-title {
+        font-size: 1.1rem;
+    }
+
+    .calendar-container {
+        padding: 1rem;
+    }
+
+    .day-cell {
+        font-size: 0.8rem;
+    }
+
+    .month-list {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+}
